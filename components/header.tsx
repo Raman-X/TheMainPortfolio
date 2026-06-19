@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
+import { NavLink } from "./nav-link";
 
 const navItems = [
   { href: "/posts", label: "Posts" },
@@ -20,16 +21,16 @@ export default function Header() {
           </Link>
         </div>
 
-        <ul className="flex items-center gap-6 text-sm font-light text-muted-foreground sm:gap-10">
+        <ul className="flex items-center gap-6 text-sm font-light sm:gap-10">
           {navItems.map((item, i) => (
             <li
               key={item.href}
-              className="opacity-0 transition-colors hover:text-foreground"
+              className="opacity-0"
               style={{
                 animation: `fadeInDown 0.35s ease-out ${0.1 + i * 0.06}s forwards`,
               }}
             >
-              <Link href={item.href}>{item.label}</Link>
+              <NavLink href={item.href}>{item.label}</NavLink>
             </li>
           ))}
         </ul>
