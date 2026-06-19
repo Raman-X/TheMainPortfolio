@@ -154,6 +154,165 @@
     }
 }
 
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInSlideRight {
+    from {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-fade-up {
+    opacity: 0;
+    animation: fadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-scale-in {
+    opacity: 0;
+    animation: scaleIn 0.4s ease-out forwards;
+}
+
+.animate-slide-in-left {
+    opacity: 0;
+    animation: slideInLeft 0.4s ease-out forwards;
+}
+
+.animate-fade-in-slide-right {
+    opacity: 0;
+    animation: fadeInSlideRight 0.25s ease-out forwards;
+}
+
+.card-hover {
+    transition: transform 0.2s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-2px);
+}
+
+.input-focus-zoom {
+    transition: transform 0.15s ease;
+}
+
+.input-focus-zoom:focus {
+    transform: scale(1.005);
+}
+
+.btn-hover {
+    transition: transform 0.15s ease;
+}
+
+.btn-hover:hover {
+    transform: scale(1.02);
+}
+
+.btn-hover:active {
+    transform: scale(0.98);
+}
+
+/* Stagger on mount */
+.stagger-on-mount > * {
+    opacity: 0;
+    animation: fadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.stagger-on-mount > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-on-mount > *:nth-child(2) { animation-delay: 0.15s; }
+.stagger-on-mount > *:nth-child(3) { animation-delay: 0.25s; }
+.stagger-on-mount > *:nth-child(4) { animation-delay: 0.35s; }
+.stagger-on-mount > *:nth-child(5) { animation-delay: 0.45s; }
+.stagger-on-mount > *:nth-child(6) { animation-delay: 0.55s; }
+.stagger-on-mount > *:nth-child(7) { animation-delay: 0.65s; }
+.stagger-on-mount > *:nth-child(8) { animation-delay: 0.75s; }
+
+/* Scroll-triggered stagger */
+.stagger-in-view > * {
+    opacity: 0;
+}
+
+.stagger-in-view.is-visible > * {
+    animation: fadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.stagger-in-view.is-visible > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-in-view.is-visible > *:nth-child(2) { animation-delay: 0.15s; }
+.stagger-in-view.is-visible > *:nth-child(3) { animation-delay: 0.25s; }
+.stagger-in-view.is-visible > *:nth-child(4) { animation-delay: 0.35s; }
+.stagger-in-view.is-visible > *:nth-child(5) { animation-delay: 0.45s; }
+.stagger-in-view.is-visible > *:nth-child(6) { animation-delay: 0.55s; }
+.stagger-in-view.is-visible > *:nth-child(7) { animation-delay: 0.65s; }
+.stagger-in-view.is-visible > *:nth-child(8) { animation-delay: 0.75s; }
+
+@media (prefers-reduced-motion: reduce) {
+    [style*="animation:"],
+    .animate-fade-up,
+    .animate-scale-in,
+    .animate-slide-in-left,
+    .animate-fade-in-slide-right,
+    .stagger-on-mount > *,
+    .stagger-in-view.is-visible > * {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
 @layer base {
     * {
         @apply border-border outline-ring/50;

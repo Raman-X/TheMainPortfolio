@@ -1,8 +1,4 @@
-"use client";
-
 import { ReactNode } from "react";
-import { motion } from "framer-motion";
-import { fadeUp } from "@/lib/animations";
 
 export function FadeUp({
   children,
@@ -11,9 +7,5 @@ export function FadeUp({
   children: ReactNode;
   className?: string;
 }) {
-  return (
-    <motion.div variants={fadeUp} className={className}>
-      {children}
-    </motion.div>
-  );
+  return <div className={className}>{children}</div>;
 }

@@ -1,9 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { fadeUp, staggerContainer, cardHover } from "@/lib/animations";
 
 type PostItem = {
   slug: string;
@@ -20,45 +16,34 @@ type PostsWrapperProps = {
 export function PostsWrapper({ posts }: PostsWrapperProps) {
   return (
     <>
-      <motion.div
-        className="mb-10"
-        initial="hidden"
-        animate="visible"
-        variants={staggerContainer()}
-      >
-        <motion.p
-          variants={fadeUp}
+      <div className="mb-10 stagger-on-mount">
+        <p
           className="text-xs uppercase tracking-[0.2em] text-primary"
+          style={{ animationDelay: "0.05s" }}
         >
           Posts
-        </motion.p>
-        <motion.h1
-          variants={fadeUp}
+        </p>
+        <h1
           className="mt-3 text-4xl font-bold tracking-tight"
+          style={{ animationDelay: "0.15s" }}
         >
           Writing
-        </motion.h1>
-        <motion.p
-          variants={fadeUp}
+        </h1>
+        <p
           className="mt-4 leading-7 text-muted-foreground"
+          style={{ animationDelay: "0.25s" }}
         >
           Notes on building useful websites, clearer marketing systems, and
           better product experiences.
-        </motion.p>
-      </motion.div>
+        </p>
+      </div>
 
-      <motion.div
-        className="grid gap-4"
-        initial="hidden"
-        animate="visible"
-        variants={staggerContainer(0.1, 0.08)}
-      >
-        {posts.map((post) => (
-          <motion.div
-            className="backdrop-blur-[1px]"
+      <div className="grid gap-4 stagger-on-mount">
+        {posts.map((post, i) => (
+          <div
+            className="card-hover backdrop-blur-[1px]"
             key={post.slug}
-            variants={fadeUp}
-            {...cardHover}
+            style={{ animationDelay: `${0.1 + i * 0.08}s` }}
           >
             <Link
               className="group block border p-5 transition-colors hover:border-primary"
@@ -84,9 +69,9 @@ export function PostsWrapper({ posts }: PostsWrapperProps) {
                 </div>
               ) : null}
             </Link>
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
     </>
   );
 }

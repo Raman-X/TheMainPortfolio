@@ -1,8 +1,4 @@
-"use client";
-
 import { ReactNode } from "react";
-import { motion } from "framer-motion";
-import { staggerContainer } from "@/lib/animations";
 
 export function MotionContainer({
   children,
@@ -12,13 +8,8 @@ export function MotionContainer({
   className?: string;
 }) {
   return (
-    <motion.div
-      className={className}
-      initial="hidden"
-      animate="visible"
-      variants={staggerContainer()}
-    >
+    <div className={`stagger-on-mount ${className ?? ""}`}>
       {children}
-    </motion.div>
+    </div>
   );
 }

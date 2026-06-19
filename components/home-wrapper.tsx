@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { fadeUp, staggerContainer, cardHover } from "@/lib/animations";
+import { useInView } from "@/components/use-in-view";
 import type { Project } from "@/lib/projects";
 
 type HomeWrapperProps = {
@@ -15,6 +14,24 @@ type HomeWrapperProps = {
   featuredProjects: Project[];
 };
 
+function AnimatedSection({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const { ref, inView } = useInView({ rootMargin: "-60px" });
+  return (
+    <section
+      ref={ref}
+      className={`${className ?? ""} stagger-in-view ${inView ? "is-visible" : ""}`}
+    >
+      {children}
+    </section>
+  );
+}
+
 export function HomeWrapper({
   latestPostHref,
   latestPostDate,
@@ -24,17 +41,8 @@ export function HomeWrapper({
 }: HomeWrapperProps) {
   return (
     <>
-      <motion.section
-        className="py-12"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
-        variants={staggerContainer()}
-      >
-        <motion.div
-          variants={fadeUp}
-          className="mb-6 flex items-end justify-between gap-4"
-        >
+      <AnimatedSection className="py-12">
+        <div className="mb-6 flex items-end justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-primary">
               Writing
@@ -47,13 +55,9 @@ export function HomeWrapper({
               <ArrowRight />
             </Link>
           </Button>
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={fadeUp}
-          {...cardHover}
-          className="backdrop-blur-[1px]"
-        >
+        <div className="card-hover backdrop-blur-[1px]">
           <Link
             className="block border p-5 transition-colors hover:border-primary"
             href={latestPostHref}
@@ -64,20 +68,11 @@ export function HomeWrapper({
               {latestPostDescription}
             </p>
           </Link>
-        </motion.div>
-      </motion.section>
+        </div>
+      </AnimatedSection>
 
-      <motion.section
-        className="py-12"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
-        variants={staggerContainer()}
-      >
-        <motion.div
-          variants={fadeUp}
-          className="mb-6 flex items-end justify-between gap-4"
-        >
+      <AnimatedSection className="py-12">
+        <div className="mb-6 flex items-end justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-primary">
               Work
@@ -90,16 +85,14 @@ export function HomeWrapper({
               <ArrowRight />
             </Link>
           </Button>
-        </motion.div>
+        </div>
 
         <div className="grid gap-4">
           {featuredProjects.map((project, i) => (
-            <motion.div
-              className="backdrop-blur-[1px]"
+            <div
+              className="card-hover backdrop-blur-[1px] animate-fade-up"
               key={project.title}
-              variants={fadeUp}
-              {...cardHover}
-              transition={{ delay: i * 0.1 }}
+              style={{ animationDelay: `${0.05 + i * 0.1}s` }}
             >
               <Link
                 className="block border p-5 transition-colors hover:border-primary"
@@ -115,37 +108,26 @@ export function HomeWrapper({
                   {project.description}
                 </p>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </motion.section>
+      </AnimatedSection>
 
-      <motion.section
-        className="py-12"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
-        variants={staggerContainer()}
-      >
-        <motion.h2 variants={fadeUp} className="text-2xl font-semibold">
-          Have a project in mind?
-        </motion.h2>
-        <motion.p
-          variants={fadeUp}
-          className="mt-3 leading-7 text-muted-foreground"
-        >
+      <AnimatedSection className="py-12">
+        <h2 className="text-2xl font-semibold">Have a project in mind?</h2>
+        <p className="mt-3 leading-7 text-muted-foreground">
           I can help shape the website, campaign, or content system around the
           thing you are trying to grow.
-        </motion.p>
-        <motion.div variants={fadeUp}>
+        </p>
+        <div>
           <Button asChild className="mt-6">
             <Link href="/contact">
               Start a conversation
               <ArrowRight />
             </Link>
           </Button>
-        </motion.div>
-      </motion.section>
+        </div>
+      </AnimatedSection>
     </>
   );
 }

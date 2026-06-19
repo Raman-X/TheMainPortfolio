@@ -1,9 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ThemeToggle } from "./theme-toggle";
-import { fadeUp } from "@/lib/animations";
 
 const navItems = [
   { href: "/posts", label: "Posts" },
@@ -13,45 +9,38 @@ const navItems = [
 
 export default function Header() {
   return (
-    <motion.header
-      className="fixed inset-x-0 top-0 z-50 bg-background/75 py-6 backdrop-blur-sm"
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
+    <header
+      className="fixed inset-x-0 top-0 z-50 bg-background/75 py-6 backdrop-blur-sm opacity-0"
+      style={{ animation: "fadeInDown 0.4s ease-out forwards" }}
     >
       <nav className="container mx-auto flex max-w-3xl items-center justify-between">
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <div className="transition-transform hover:scale-105 active:scale-95">
           <Link href="/" className="font-serif text-2xl font-bold">
             RM
           </Link>
-        </motion.div>
+        </div>
 
         <ul className="flex items-center gap-6 text-sm font-light text-muted-foreground sm:gap-10">
           {navItems.map((item, i) => (
-            <motion.li
+            <li
               key={item.href}
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.1 + i * 0.06,
-                duration: 0.35,
-                ease: "easeOut",
+              className="opacity-0 transition-colors hover:text-foreground"
+              style={{
+                animation: `fadeInDown 0.35s ease-out ${0.1 + i * 0.06}s forwards`,
               }}
-              className="transition-colors hover:text-foreground"
             >
               <Link href={item.href}>{item.label}</Link>
-            </motion.li>
+            </li>
           ))}
         </ul>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.4 }}
+        <div
+          className="opacity-0"
+          style={{ animation: "fadeIn 0.4s ease-out 0.3s forwards" }}
         >
           <ThemeToggle />
-        </motion.div>
+        </div>
       </nav>
-    </motion.header>
+    </header>
   );
 }

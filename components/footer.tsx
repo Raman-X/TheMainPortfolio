@@ -1,20 +1,14 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 export default function Footer() {
   return (
-    <motion.footer
-      className="py-4"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.4, duration: 0.5 }}
+    <footer
+      className="py-4 opacity-0"
+      style={{ animation: "fadeIn 0.5s ease-out 0.4s forwards" }}
     >
       <div className="container mx-auto max-w-3xl">
         <p className="text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} Raman Maharjan. All rights reserved.
         </p>
       </div>
-    </motion.footer>
+    </footer>
   );
 }
