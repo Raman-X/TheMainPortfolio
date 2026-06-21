@@ -218,6 +218,39 @@
     }
 }
 
+@keyframes shake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    20% {
+        transform: translateX(-6px);
+    }
+    40% {
+        transform: translateX(6px);
+    }
+    60% {
+        transform: translateX(-4px);
+    }
+    80% {
+        transform: translateX(4px);
+    }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
 .animate-fade-up {
     opacity: 0;
     animation: fadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
@@ -236,6 +269,14 @@
 .animate-fade-in-slide-right {
     opacity: 0;
     animation: fadeInSlideRight 0.25s ease-out forwards;
+}
+
+.animate-shake {
+    animation: shake 0.4s ease-in-out;
+}
+
+.animate-pop {
+    animation: pop 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 .card-hover {
@@ -272,14 +313,30 @@
     animation: fadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-.stagger-on-mount > *:nth-child(1) { animation-delay: 0.05s; }
-.stagger-on-mount > *:nth-child(2) { animation-delay: 0.15s; }
-.stagger-on-mount > *:nth-child(3) { animation-delay: 0.25s; }
-.stagger-on-mount > *:nth-child(4) { animation-delay: 0.35s; }
-.stagger-on-mount > *:nth-child(5) { animation-delay: 0.45s; }
-.stagger-on-mount > *:nth-child(6) { animation-delay: 0.55s; }
-.stagger-on-mount > *:nth-child(7) { animation-delay: 0.65s; }
-.stagger-on-mount > *:nth-child(8) { animation-delay: 0.75s; }
+.stagger-on-mount > *:nth-child(1) {
+    animation-delay: 0.05s;
+}
+.stagger-on-mount > *:nth-child(2) {
+    animation-delay: 0.15s;
+}
+.stagger-on-mount > *:nth-child(3) {
+    animation-delay: 0.25s;
+}
+.stagger-on-mount > *:nth-child(4) {
+    animation-delay: 0.35s;
+}
+.stagger-on-mount > *:nth-child(5) {
+    animation-delay: 0.45s;
+}
+.stagger-on-mount > *:nth-child(6) {
+    animation-delay: 0.55s;
+}
+.stagger-on-mount > *:nth-child(7) {
+    animation-delay: 0.65s;
+}
+.stagger-on-mount > *:nth-child(8) {
+    animation-delay: 0.75s;
+}
 
 /* Scroll-triggered stagger */
 .stagger-in-view > * {
@@ -290,14 +347,30 @@
     animation: fadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-.stagger-in-view.is-visible > *:nth-child(1) { animation-delay: 0.05s; }
-.stagger-in-view.is-visible > *:nth-child(2) { animation-delay: 0.15s; }
-.stagger-in-view.is-visible > *:nth-child(3) { animation-delay: 0.25s; }
-.stagger-in-view.is-visible > *:nth-child(4) { animation-delay: 0.35s; }
-.stagger-in-view.is-visible > *:nth-child(5) { animation-delay: 0.45s; }
-.stagger-in-view.is-visible > *:nth-child(6) { animation-delay: 0.55s; }
-.stagger-in-view.is-visible > *:nth-child(7) { animation-delay: 0.65s; }
-.stagger-in-view.is-visible > *:nth-child(8) { animation-delay: 0.75s; }
+.stagger-in-view.is-visible > *:nth-child(1) {
+    animation-delay: 0.05s;
+}
+.stagger-in-view.is-visible > *:nth-child(2) {
+    animation-delay: 0.15s;
+}
+.stagger-in-view.is-visible > *:nth-child(3) {
+    animation-delay: 0.25s;
+}
+.stagger-in-view.is-visible > *:nth-child(4) {
+    animation-delay: 0.35s;
+}
+.stagger-in-view.is-visible > *:nth-child(5) {
+    animation-delay: 0.45s;
+}
+.stagger-in-view.is-visible > *:nth-child(6) {
+    animation-delay: 0.55s;
+}
+.stagger-in-view.is-visible > *:nth-child(7) {
+    animation-delay: 0.65s;
+}
+.stagger-in-view.is-visible > *:nth-child(8) {
+    animation-delay: 0.75s;
+}
 
 @media (prefers-reduced-motion: reduce) {
     [style*="animation:"],
@@ -305,6 +378,8 @@
     .animate-scale-in,
     .animate-slide-in-left,
     .animate-fade-in-slide-right,
+    .animate-shake,
+    .animate-pop,
     .stagger-on-mount > *,
     .stagger-in-view.is-visible > * {
         animation: none !important;

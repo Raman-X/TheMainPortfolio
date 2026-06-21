@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { Send, AlertCircle, Loader2, Sparkles } from "lucide-react";
 import { sendContactMessage } from "@/app/contact/actions";
 import { Button } from "@/components/ui/button";
 
@@ -52,7 +52,8 @@ export function ContactForm() {
             autoComplete="name"
             required
             placeholder="Your name"
-            className="input-focus-zoom h-12 w-full border border-border bg-transparent px-4 text-sm outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary focus:bg-primary/[0.02]"
+            disabled={isSuccess}
+            className="input-focus-zoom h-12 w-full border border-border bg-transparent px-4 text-sm outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary focus:bg-primary/[0.02] disabled:opacity-40"
           />
         </div>
 
@@ -73,7 +74,8 @@ export function ContactForm() {
             autoComplete="email"
             required
             placeholder="you@example.com"
-            className="input-focus-zoom h-12 w-full border border-border bg-transparent px-4 text-sm outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary focus:bg-primary/[0.02]"
+            disabled={isSuccess}
+            className="input-focus-zoom h-12 w-full border border-border bg-transparent px-4 text-sm outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary focus:bg-primary/[0.02] disabled:opacity-40"
           />
         </div>
       </div>
@@ -94,50 +96,71 @@ export function ContactForm() {
           required
           rows={6}
           placeholder="Tell me about your project, timeline, and goals..."
-          className="input-focus-zoom w-full resize-y border border-border bg-transparent px-4 py-3 text-sm leading-relaxed outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary focus:bg-primary/[0.02]"
+          disabled={isSuccess}
+          className="input-focus-zoom w-full resize-y border border-border bg-transparent px-4 py-3 text-sm leading-relaxed outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary focus:bg-primary/[0.02] disabled:opacity-40"
         />
       </div>
 
-      <div
-        className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between animate-fade-up"
-        style={{ animationDelay: "0.4s" }}
-      >
+      {isSuccess ? (
         <div
-          key={state.status + state.message}
-          className={`flex items-center gap-2 text-sm animate-fade-in-slide-right ${
-            isSuccess
-              ? "text-primary"
-              : isError
-                ? "text-destructive"
-                : "text-muted-foreground"
-          }`}
+          className="flex items-center gap-3 border border-primary/30 bg-primary/[0.04] px-5 py-4 animate-scale-in"
           aria-live="polite"
         >
-          {isSuccess && <CheckCircle2 className="size-4 shrink-0" />}
-          {isError && <AlertCircle className="size-4 shrink-0" />}
-          <span>{state.message}</span>
+          <div className="inline-flex shrink-0 items-center justify-center rounded-full bg-primary/10 p-2">
+            <Sparkles className="size-5 text-primary animate-pop" />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-primary">Message sent</p>
+            <p className="text-sm text-primary/80">{state.message}</p>
+          </div>
         </div>
+      ) : (
+        <>
+          {isError && (
+            <div
+              className="flex items-center gap-3 border border-destructive/30 bg-destructive/[0.04] px-5 py-4 animate-shake"
+              aria-live="polite"
+            >
+              <div className="inline-flex shrink-0 items-center justify-center rounded-full bg-destructive/10 p-2">
+                <AlertCircle className="size-5 text-destructive" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-destructive">
+                  Could not send
+                </p>
+                <p className="text-sm text-destructive/80">{state.message}</p>
+              </div>
+            </div>
+          )}
 
-        <div className="btn-hover">
-          <Button
-            className="w-full gap-2 sm:w-auto"
-            type="submit"
-            disabled={pending}
+          <div
+            className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between animate-fade-up"
+            style={{ animationDelay: "0.4s" }}
           >
-            {pending ? (
-              <span className="inline-flex items-center gap-2 animate-fade-in">
-                <Loader2 className="size-4 animate-spin" />
-                Sending
-              </span>
-            ) : (
-              <span className="inline-flex items-center gap-2">
-                <Send className="size-4" />
-                Send message
-              </span>
-            )}
-          </Button>
-        </div>
-      </div>
+            <p className="text-sm text-muted-foreground">{state.message}</p>
+
+            <div className="btn-hover">
+              <Button
+                className="w-full gap-2 sm:w-auto"
+                type="submit"
+                disabled={pending}
+              >
+                {pending ? (
+                  <span className="inline-flex items-center gap-2 animate-fade-in">
+                    <Loader2 className="size-4 animate-spin" />
+                    Sending
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-2">
+                    <Send className="size-4" />
+                    Send message
+                  </span>
+                )}
+              </Button>
+            </div>
+          </div>
+        </>
+      )}
     </form>
   );
 }
