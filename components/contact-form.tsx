@@ -2,8 +2,18 @@
 
 import { useActionState } from "react";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
-import { initialContactState, sendContactMessage } from "@/app/contact/actions";
+import { sendContactMessage } from "@/app/contact/actions";
 import { Button } from "@/components/ui/button";
+
+type ContactState = {
+  status: "idle" | "success" | "error";
+  message: string;
+};
+
+const initialContactState: ContactState = {
+  status: "idle",
+  message: "Tell me a little about what you want to build.",
+};
 
 export function ContactForm() {
   const [state, formAction, pending] = useActionState(

@@ -49,6 +49,12 @@ export function ContactWrapper() {
               Best for website builds, landing pages, content systems, and
               practical marketing experiments.
             </p>
+            <a
+              href="mailto:contact@ramanmaharjan.com"
+              className="mt-4 inline-block text-sm font-medium text-primary underline-offset-4 transition-colors hover:underline"
+            >
+              contact@ramanmaharjan.com
+            </a>
           </div>
 
           <div

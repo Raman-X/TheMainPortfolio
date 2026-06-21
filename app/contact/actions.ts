@@ -2,16 +2,9 @@
 
 import { Resend } from "resend";
 
-export type ContactState = {
+type ContactState = {
   status: "idle" | "success" | "error";
   message: string;
-};
-
-const initialMessage = "Tell me a little about what you want to build.";
-
-export const initialContactState: ContactState = {
-  status: "idle",
-  message: initialMessage,
 };
 
 function getField(formData: FormData, key: string) {
@@ -51,7 +44,8 @@ export async function sendContactMessage(
 
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_EMAIL;
-  const from = process.env.RESEND_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>";
+  const from =
+    process.env.RESEND_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>";
 
   if (!apiKey || !to) {
     return {
